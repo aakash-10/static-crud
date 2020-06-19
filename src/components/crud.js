@@ -14,7 +14,9 @@ const Crud = () => {
     const [editing, setEditing] = useState(false)
     const initialFormState = { id: null, name: '', username: '' }
     const [currentUser, setCurrentUser] = useState(initialFormState)
-
+    const [inputvalue, setSearchValue] = useState('')
+   
+ 
     const editRow = user => {
         setEditing(true)
 
@@ -35,10 +37,17 @@ const Crud = () => {
 
         setUsers(users.map(user => (user.id === id ? updatedUser : user)))
     }
+
+const filtered = users.filter(user=>{
+    return user.name.toLowerCase().includes(inputvalue.toLowerCase())
+})
+
+  
     
     return (
+        <>
         <div className="container">
-            <h1>CRUD App</h1>
+            <h1 style={{color:'darkgrey'}} >CRUD App</h1>
             <div className="flex-row">
                 <div className="flex-large">
                     {editing ? (
@@ -60,10 +69,16 @@ const Crud = () => {
                 </div>
                 <div className="flex-large">
                     <h2>View users</h2>
-                    <Table users={users} deleteUser={deleteUser} editRow={editRow}></Table>
+                   
+                    <label htmlFor="search">search by name</label>
+                    {inputvalue}
+                    <input type="text" name="name"  onChange={e=>setSearchValue(e.target.value)} />
+                    {/* <input onClick={callSearchFunction} type="submit" value="SEARCH" /> */}
+                    <Table filtered={filtered} users={users} deleteUser={deleteUser} editRow={editRow}></Table>
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

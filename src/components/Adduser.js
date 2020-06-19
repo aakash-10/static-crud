@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Button from '@material-ui/core/Button';
+
 
 const AddUserForm = props => {
     const initialFormState = { id: null, name: '', username: '' }
@@ -19,10 +21,11 @@ const AddUserForm = props => {
             }}
         >
             <label>Name</label>
+            
             <input type="text" name="name" value={user.name} onChange={handleInputChange} />
             <label>Username</label>
             <input type="text" name="username" value={user.username} onChange={handleInputChange} />
-            <button>Add new user</button>
+            <Button variant="contained" color="primary">Add new user</Button>
         </form>
     )
 }
